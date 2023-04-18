@@ -1,0 +1,161 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>test3</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <style>
+        * {
+            margin-top: 20px;
+        }
+
+        .basic {
+            width: 400px;
+            height: 100px;
+            border: 4px solid gray;
+            background-color: lightblue;
+        }
+
+        .happy {
+            width: 400px;
+            height: 100px;
+            border: 4px solid red;
+            background-color: rgba(255, 255, 0, 0.644);
+            background: linear-gradient(30deg, yellow, pink, orange, yellow);
+        }
+
+        .sad {
+            width: 400px;
+            height: 100px;
+            border: 4px solid gray;
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <div :class="mood" @click="changeMood">{{name}} (點我)</div>
+        <div :class="mood">{{name}}</div>
+        <div :class="mood" :style="styleObj">{{name}}</div>
+        <hr>
+
+        <h2 v-show="true">當前的n值是 {{n}}</h2>
+        <button @click="addN()">點我n+1</button>
+        <div v-show="n===1">angular</div>
+        <div v-show="n===2">react</div>
+        <div v-show="n===3">vue</div>
+        <div v-if="n===1">angular2</div>
+        <div v-else-if="n===2">react2</div>
+        <div v-else-if="n===3">vue2</div>
+        <div v-else>嗨嗨</div>
+
+        <!--template 只能搭配v-if-->
+        <template v-if="n===1">
+            <h3>hihi</h3>
+            <h3>yoyo</h3>
+            <h3>yeah</h3>
+        </template>
+        <hr>
+
+        員工名單
+        <input type="text" v-model="keyWord" placeholder="請輸入名字"></input>
+        <button @click="sortType=2">年齡升序</button>
+        <button @click="sortType=1">年齡降序</button>
+        <button @click="sortType=0">原順序</button>
+        <ul>
+            <li v-for="person in filterPersons" :key="person.id">
+                姓名:{{person.name}} 年齡:{{person.age}} 性別:{{person.sex}}
+            </li>
+        </ul>
+
+        <!-- <ul>
+            <li v-for="(person,index) in persons" :key="index">
+                姓名:{{person.name}} 年齡:{{person.age}} 索引 {{index}}
+            </li>
+            <br>
+            <li v-for="(value,k) of car" :key="k">
+                {{k}}: {{value}}
+            </li>
+        </ul> -->
+    </div>
+    <script type="text/javascript">
+
+        const v = new Vue({
+            data() {
+                //data第二種寫法
+                return {
+                    keyWord: '',
+                    sortType: 0, //0原順序 1降序 2升序
+                    name: '嗨嗨大家好',
+                    mood: 'basic',
+                    styleObj: {
+                        fontSize: '40px',
+                        color: 'red',
+                        backgroundColor: 'orange'
+                    },
+                    n: 0,
+                    persons: [
+                        { id: '001', name: 'jack', age: 20 },
+                        { id: '002', name: 'adam', age: 19 },
+                        { id: '003', name: 'amy', age: 20 },
+                    ],
+                    // filterPersons: [],
+                    car: {
+                        name: 'audi a8',
+                        price: '200萬',
+                        color: 'black'
+                    }
+                };
+            },
+            methods: {
+                changeMood() {
+                    const arr = ['happy', 'sad', 'basic']
+                    const index = Math.floor(Math.random() * 3)
+                    this.mood = arr[index]
+                },
+                addN() {
+                    this.n++;
+                    if (this.n >= 4) {
+                        this.n = 0;
+                    }
+                }
+            },
+            computed: {
+                //computed實現列表過濾
+                filterPersons() {
+                    const arr = this.persons.filter((p) => {
+                        return p.name.indexOf(this.keyWord) !== -1
+                    })
+
+                    if (this.sortType) {
+                        arr.sort((p1, p2) => {
+                            return this.sortType === 1 ? p2.age - p1.age : p1.age - p2.age
+                        })
+                    }
+
+                    return arr;
+                }
+            },
+            watch: {
+                //watch實現列表過濾
+                // keyWord: {
+                //     immediate: true,
+                //     handler(val) {
+                //         this.filterPersons = this.persons.filter((p) => {
+                //             return p.name.indexOf(val) !== -1
+                //         })
+                //     }
+                // }
+            }
+        });
+
+        v.$mount("#root"); //el第二種寫法
+
+        for (let i = 0; i < v.persons.length; i++) {
+            v.persons[i].name === 'amy' ? v.$set(v.persons[i], 'sex', '女') : v.$set(v.persons[i], 'sex', '男')
+        }
+    </script>
+</body>
+
+</html>
