@@ -9,11 +9,9 @@
 
             <div class="progressbar">
                 <div class="progress" id="progress" :style="progress_width"></div>
-                <div class="progress-step" :class="progress_type[0]"></div>
-                <div class="progress-step" :class="progress_type[1]"></div>
-                <div class="progress-step" :class="progress_type[2]"></div>
-                <div class="progress-step" :class="progress_type[3]"></div>
-                <div class="progress-step" :class="progress_type[4]"></div>
+                <div v-for="(p, index) in progress_type" :key="index">
+                    <div class="progress-step" :class="progress_type[index]"></div>
+                </div>
             </div>
 
             <div v-show="step === 1" class="form-step">
@@ -106,11 +104,11 @@ export default {
         return {
             step: 1,
             progress_type: [
-                'progress-step',
-                'progress-step',
-                'progress-step',
-                'progress-step',
-                'progress-step'
+                '',
+                '',
+                '',
+                '',
+                ''
             ],
             progress_width: 'width:0%',
             form: {
@@ -138,22 +136,7 @@ export default {
                     },
                     {
                         name: '金融大樓10F'
-                    },
-                    {
-                        name: '金融大樓1F'
-                    },
-                    {
-                        name: '金融大樓1F'
-                    },
-                    {
-                        name: '金融大樓1F'
-                    },
-                    {
-                        name: '金融大樓1F'
-                    },
-                    {
-                        name: '金融大樓1F'
-                    },
+                    }
                 ],
             }
         }
@@ -163,6 +146,12 @@ export default {
         }
     },
     watch: {
+        progress_type: {
+            immediate: true,
+            handler(val) {
+                return this.progress_type
+            }
+        },
         step: {
             immediate: true,
             handler(val) {
@@ -170,42 +159,45 @@ export default {
                 var width = 0;
                 if (val === 1) {
                     this.progress_type[0] = "progress-step-active"
-                    this.progress_type[1] = ""
-                    this.progress_type[2] = ""
-                    this.progress_type[3] = ""
-                    this.progress_type[4] = ""
+                    for (let i = 1; i < this.progress_type.length; i++) {
+                        this.progress_type[i] = ""
+                    }
                 } else if (val === 2) {
-                    this.progress_type[0] = "progress-step-active"
-                    this.progress_type[1] = "progress-step-active"
-                    this.progress_type[2] = ""
-                    this.progress_type[3] = ""
-                    this.progress_type[4] = ""
-                    width = ((1)/(5-1))*100
+                    for (let i = 0; i < this.progress_type.length; i++) {
+                        if (i <= 1) {
+                            this.progress_type[i] = "progress-step-active"
+                        } else {
+                            this.progress_type[i] = ""
+                        }
+                    }
+                    width = ((1) / (5 - 1)) * 100
                 } else if (val === 3) {
-                    this.progress_type[0] = "progress-step-active"
-                    this.progress_type[1] = "progress-step-active"
-                    this.progress_type[2] = "progress-step-active"
-                    this.progress_type[3] = ""
-                    this.progress_type[4] = ""
-                    width = ((1)/(3-1))*100
+                    for (let i = 0; i < this.progress_type.length; i++) {
+                        if (i <= 2) {
+                            this.progress_type[i] = "progress-step-active"
+                        } else {
+                            this.progress_type[i] = ""
+                        }
+                    }
+                    width = ((1) / (3 - 1)) * 100
                 } else if (val === 4) {
-                    this.progress_type[0] = "progress-step-active"
-                    this.progress_type[1] = "progress-step-active"
-                    this.progress_type[2] = "progress-step-active"
-                    this.progress_type[3] = "progress-step-active"
-                    this.progress_type[4] = ""
-                    width = ((1)/(2.4-1))*100
+                    for (let i = 0; i < this.progress_type.length; i++) {
+                        if (i <= 3) {
+                            this.progress_type[i] = "progress-step-active"
+                        } else {
+                            this.progress_type[i] = ""
+                        }
+                    }
+                    width = ((1) / (2.4 - 1)) * 100
                 } else {
-                    this.progress_type[0] = "progress-step-active"
-                    this.progress_type[1] = "progress-step-active"
-                    this.progress_type[2] = "progress-step-active"
-                    this.progress_type[3] = "progress-step-active"
-                    this.progress_type[4] = "progress-step-active"
+                    for (let i = 0; i < this.progress_type.length; i++) {
+                        this.progress_type[i] = "progress-step-active"
+                    }
                     width = 100
                 }
 
-                console.log(width)
-                this.progress_width = 'width:'+ width + '%'
+                console.log(width + '%')
+                this.progress_width = 'width:' + width + '%'
 
                 return val;
             }
