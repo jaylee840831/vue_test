@@ -3,14 +3,19 @@
 
 <template>
     <div id="main">
-        <div v-for="(board, index) in boards" class="d-card">
-            <DashBoardCard :cardName="board.channelName" :cardValue="board.value"></DashBoardCard>
+        <!--數據儀錶板-->
+        <div class="data-board">
+            <div v-for="(board, index) in boards" class="data-card" key="index">
+                <DashBoardCard :cardName="board.channelName" :cardValue="board.value" :cardImage="1" v-if="index < 3">
+                </DashBoardCard>
+                <DashBoardCard :cardName="board.channelName" :cardValue="board.value" :cardImage="2" v-else></DashBoardCard>
+            </div>
         </div>
     </div>
+    <!--圖表儀錶板---->
 </template>
  
 <script>
-
 import DashBoardCard from '../components/DashBoardCard.vue'
 
 export default {
@@ -18,18 +23,32 @@ export default {
         return {
             timer: false,
             timer2: null,
+            car: 'car',
+            license: 'license',
             boards: [
                 {
-                    channelName: "Illegal Parking CH1",
+                    channelName: "市民大道 Illegal Parking CH1",
                     value: 1000
                 },
                 {
-                    channelName: "Illegal Parking CH2",
+                    channelName: "市民大道 Illegal Parking CH2",
                     value: 50
                 },
                 {
-                    channelName: "Illegal Parking CH3",
+                    channelName: "市民大道 Illegal Parking CH3",
                     value: 2500
+                },
+                {
+                    channelName: "中正運動中心停車場 LPR CH1",
+                    value: 800
+                },
+                {
+                    channelName: "中正運動中心停車場 LPR CH2",
+                    value: 2000
+                },
+                {
+                    channelName: "中正運動中心停車場 LPR CH3",
+                    value: 1500
                 }
             ]
         }
@@ -43,14 +62,6 @@ export default {
         }
     }, watch: {
     }, mounted() {
-        /*
-          最初始情况，项目刚打开的时候，这个时候页面是必定没有定时器的，那么逻辑就会走else，这个时候就会注册一个定时器去循环调用相应逻辑代码
-          后续有三种情况
-             情况一：路由跳转，跳走了，就要清除这个定时器，所以在beforeDestroy钩子中要清除定时器
-             情况二：关闭项目，关闭项目了以后，系统就会自动停掉定时器，这个不用管它
-             情况三：刷新页面，这个时候vue组件的钩子是不会执行beforeDestroy和destroyed钩子的，所以
-                    需要加上if判断一下，若还有定时器的话，就清除掉，所以这个就是mounted钩子的if判断的原因
-       */
         if (this.timer2) {
             clearInterval(this.timer2);
         } else {
@@ -67,7 +78,12 @@ export default {
 }
 </script>
 <style>
-.d-card {
+.data-board {
+    height: 300px;
+    overflow-y: auto;
+}
+
+.data-card {
     display: inline-block;
 }
 
@@ -75,8 +91,5 @@ export default {
     font-family: Montserrat, "Segoe UI", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 4rem 0;
     text-align: center;
-    /* display: grid;
-    place-items: center;
-    min-height: 100vh; */
 }
 </style>

@@ -1,18 +1,24 @@
 <script setup>
-import { computed } from '@vue/reactivity';
-
 </script>
 
 <template>
-    <div class="d-card">
-        <div class="title">
-            <h3>{{ cardName }}</h3>
-        </div>
-        <div class="body">
-            <h1>{{ regCardValue }}</h1>
-        </div>
-        <div class="footer">
-
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="title">
+                            <img class="icon" src="../assets/car.png" style="margin: 0 10px;" v-if="cardImage === 1">
+                            <img class="icon" src="../assets/license.png" style="margin: 0 10px;" v-else>
+                        <h3>{{ cardName }}</h3>
+                    </div>
+                    <div class="body">
+                        <h3 style="color: blue;">{{ regCardValue }}</h3>
+                    </div>
+                    <div class="footer">
+                        <h3>decrease 10 %</h3>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -25,6 +31,7 @@ export default {
     },
     props: {
         cardName: String,
+        cardImage: Number,
         cardValue: Number
     },
     methods: {
@@ -47,13 +54,34 @@ export default {
 }
 </script>
 <style>
-.d-card {
-    margin: 0 2rem;
+.title {
+    display: flex;
+    /* 水平置中 */
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-.title {}
+.body {}
 
-.body {
-    color: blue;
+.footer {
+    color: #00ff00;
+}
+
+.card {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 1rem 0;
+    /**上下間距 */
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    background-color: #eee;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 </style>
