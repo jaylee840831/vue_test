@@ -9,7 +9,7 @@ http://localhost:5173/vue2_html/test3.html <br>
 ...
 
 ## vue 實作
-http://localhost:5173/add/devices
+http://localhost:5173
 
 # 
 
