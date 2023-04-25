@@ -4,11 +4,11 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-12">
                 <div class="card">
                     <div class="title">
-                            <img class="icon" src="../assets/car.png" style="margin: 0 10px;" v-if="cardImage === 1">
-                            <img class="icon" src="../assets/license.png" style="margin: 0 10px;" v-else>
+                        <img class="icon" src="../assets/car.png" style="margin: 0 10px;" v-if="cardImage === 1">
+                        <img class="icon" src="../assets/license.png" style="margin: 0 10px;" v-else>
                         <h3>{{ cardName }}</h3>
                     </div>
                     <div class="body">
@@ -56,9 +56,10 @@ export default {
 <style>
 .title {
     display: flex;
-    /* 水平置中 */
-    justify-content: center;
     flex-wrap: wrap;
+    /* 水平置中 */
+    align-items: center;
+    justify-content: center;
 }
 
 .body {}
@@ -72,7 +73,8 @@ export default {
     border-radius: 10px;
     padding: 20px;
     margin: 1rem 0;
-    /**上下間距 */
+    align-items: center;
+    justify-content: center;
 }
 
 .icon {
@@ -81,6 +83,7 @@ export default {
     background-color: #eee;
     border-radius: 15px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
 }
