@@ -4,26 +4,45 @@
 <template>
     <div id="main">
         <!--數據儀錶板-->
-        <div class="container">
-            <div class="row">
-                <DashBoardCard :cardName="eventTotal[0].name" :cardValue="eventTotal[0].value" :cardImage="0"
-                    class="col-12 col-lg-3">
-                </DashBoardCard>
-                <swiper :spaceBetween="1" :loop="true" :autoplay="{
-                            delay: 2000
-                        }" :slides-per-view="1" class="col-12 col-lg-5">
-                    <swiper-slide v-for="(event, index) in events" key="index">
-                        <DashBoardCard :cardName="event.channelName" :cardValue="event.value" :cardImage="1"
-                            v-if="index < 3">
-                        </DashBoardCard>
-                        <DashBoardCard :cardName="event.channelName" :cardValue="event.value" :cardImage="2" v-else>
-                        </DashBoardCard>
-                    </swiper-slide>
-                </swiper>
-                <DashBoardCard :cardName="eventTotal[1].name" :cardValue="eventTotal[1].value" :cardImage="0"
-                    class="col-12 col-lg-3">
-                </DashBoardCard>
-            </div>
+        <div class="row">
+            <DashBoardCard :cardName="eventTotal[0].name" :cardValue="eventTotal[0].value" :cardImage="0"
+                style="width: 20%;">
+            </DashBoardCard>
+            <swiper 
+                :spaceBetween="1" 
+                :loop="true" 
+                :autoplay="{
+                delay: 2000
+                }" 
+                :slides-per-view="3" 
+                :breakpoints= "{
+                    500: {
+                        slidesPerView: 2
+                    },
+                    767: {
+                        slidesPerView: 2
+                    },
+                    1024: {
+                        slidesPerView: 2
+                    },
+                    1600: {
+                        slidesPerView: 3
+                    },
+                    1920: {
+                        slidesPerView: 3
+                    }
+                }"
+                style="width: 60%;">
+                <swiper-slide v-for="(event, index) in events" key="index">
+                    <DashBoardCard :cardName="event.channelName" :cardValue="event.value" :cardImage="1" v-if="index < 3">
+                    </DashBoardCard>
+                    <DashBoardCard :cardName="event.channelName" :cardValue="event.value" :cardImage="2" v-else>
+                    </DashBoardCard>
+                </swiper-slide>
+            </swiper>
+            <DashBoardCard :cardName="eventTotal[1].name" :cardValue="eventTotal[1].value" :cardImage="0"
+                style="width: 20%;">
+            </DashBoardCard>
         </div>
     </div>
     <!--圖表儀錶板---->
@@ -45,17 +64,17 @@ export default {
             license: 'license',
             eventTotal: [
                 {
-                    name: "Total Event",
+                    name: "Total Alarm",
                     value: 1000
                 },
                 {
-                    name: "Total Event %",
+                    name: "Alarm %",
                     value: 50
                 }
             ],
             events: [
                 {
-                    channelName: "市民大道 Illegal Parking CH1",
+                    channelName: "台北市中正區忠孝東路二段88號 Illegal Parking CH1",
                     value: 1000
                 },
                 {
@@ -144,7 +163,7 @@ export default {
 <style>
 #main {
     font-family: Montserrat, "Segoe UI", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 4rem 0;
+    margin: 2rem 0;
     text-align: center;
 }
 </style>
