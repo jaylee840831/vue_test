@@ -17,7 +17,7 @@
                         <div style="color: blue;">{{ cardValueReg }}</div>
                     </div>
                     <div class="footer">
-                        decrease 10 %
+                        decrease 10 % than yesterday
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@ export default {
         },
         cardNameShortening() {
             if (this.cardName.length > 24) {
-                return this.cardName.substring(0, 24) + '...'
+                return this.cardName.substring(0, 15) + '...'
             }
             return this.cardName
         }
@@ -76,6 +76,10 @@ export default {
 
 .footer {
     color: #00ff00;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 .icon {
@@ -89,65 +93,44 @@ export default {
     justify-content: center;
 }
 
-/** 1024以上像素 */
-@media screen and (min-width: 1024px) {
+/** 1600像素以下 */
+@media screen and (max-width: 1600px) {
     .dashboard-card {
-        font-size: x-large;
-        height: 250px;
+        font-size: 15px;
+        height: 160px;
         border: 1px solid black;
         border-radius: 10px;
-        padding: 20px;
-        margin: 1rem 0;
     }
-}
 
-/** 991以下像素 */
-@media screen and (max-width: 991px) {
-    .dashboard-card {
-        font-size: x-large;
+    .icon {
+        width: 40px;
+        height: 40px;
+        background-color: #eee;
+        border-radius: 15px;
         display: flex;
         flex-wrap: wrap;
-        height: 250px;
-        border: 1px solid black;
-        border-radius: 10px;
-        padding: 20px;
-        margin: 1rem 0;
+        align-items: center;
+        justify-content: center;
     }
 }
 
-/** 992以上像素 */
-@media screen and (min-width: 992px) {
+/** 1600~1920像素 */
+@media screen and (min-width: 1600px) and (max-width: 1920px) {
     .dashboard-card {
-        font-size: x-large;
-        height: 250px;
+        font-size: 15px;
+        height: 160px;
         border: 1px solid black;
         border-radius: 10px;
-        padding: 20px;
-        margin: 1rem 0;
     }
 }
 
-/** 1600以上像素 */
-@media screen and (min-width: 1600px) {
-    .dashboard-card {
-        font-size: x-large;
-        height: 250px;
-        border: 1px solid black;
-        border-radius: 10px;
-        padding: 20px;
-        margin: 1rem 0;
-    }
-}
-
-/** 1920以上像素 */
+/** 1920像素以上 */
 @media screen and (min-width: 1920px) {
     .dashboard-card {
-        font-size: xx-large;
-        height: 300px;
+        font-size: 18px;
+        height: 160px;
         border: 1px solid black;
         border-radius: 10px;
-        padding: 20px;
-        margin: 1rem 0;
     }
 }
 </style>

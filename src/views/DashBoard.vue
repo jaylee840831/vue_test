@@ -1,4 +1,11 @@
 <script setup>
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Autoplay, Pagination } from 'swiper'
+import 'swiper/css'
+import 'swiper/css/pagination'
+
+const modules = [Autoplay, Pagination];
+
 </script>
 
 <template>
@@ -6,33 +13,53 @@
         <!--數據儀錶板-->
         <div class="row">
             <DashBoardCard :cardName="eventTotal[0].name" :cardValue="eventTotal[0].value" :cardImage="0"
-                style="width: 20%;">
+                class="dashboardcard">
             </DashBoardCard>
-            <swiper 
-                :spaceBetween="1" 
-                :loop="true" 
-                :autoplay="{
-                delay: 2000
-                }" 
-                :slides-per-view="3" 
-                :breakpoints= "{
+            <swiper :modules="modules" :autoplay="{ enable: false }" :breakpoints="{
+                    0: {
+                        slidesPerView: 3,
+                        direction: 'vertical',
+                        loop: false,
+                        autoplay: {
+                            enabled: false
+                        }
+                    },
                     500: {
-                        slidesPerView: 2
+                        slidesPerView: 3,
+                        direction: 'vertical',
+                        loop: false,
+                        autoplay: {
+                            enabled: false
+                        }
                     },
-                    767: {
-                        slidesPerView: 2
-                    },
-                    1024: {
-                        slidesPerView: 2
+                    1040: {
+                        slidesPerView: 2,
+                        direction: 'horizontal',
+                        loop: true,
+                        autoplay: {
+                            enabled: true,
+                            delay: 3000,
+                        }
                     },
                     1600: {
-                        slidesPerView: 3
+                        slidesPerView: 3,
+                        direction: 'horizontal',
+                        loop: true,
+                        autoplay: {
+                            enabled: true,
+                            delay: 3000,
+                        }
                     },
                     1920: {
-                        slidesPerView: 3
+                        slidesPerView: 3,
+                        direction: 'horizontal',
+                        loop: true,
+                        autoplay: {
+                            enabled: true,
+                            delay: 3000,
+                        }
                     }
-                }"
-                style="width: 60%;">
+                }" class="dashboardcard-swiper">
                 <swiper-slide v-for="(event, index) in events" key="index">
                     <DashBoardCard :cardName="event.channelName" :cardValue="event.value" :cardImage="1" v-if="index < 3">
                     </DashBoardCard>
@@ -41,7 +68,7 @@
                 </swiper-slide>
             </swiper>
             <DashBoardCard :cardName="eventTotal[1].name" :cardValue="eventTotal[1].value" :cardImage="0"
-                style="width: 20%;">
+                class="dashboardcard">
             </DashBoardCard>
         </div>
     </div>
@@ -49,10 +76,6 @@
 </template>
  
 <script>
-import { Swiper, SwiperSlide } from 'swiper/vue'
-// import {AutoPlay, Pagination} from 'swiper'
-import "swiper/css"
-import "swiper/css/pagination"
 import DashBoardCard from '../components/DashBoardCard.vue'
 
 export default {
@@ -64,12 +87,12 @@ export default {
             license: 'license',
             eventTotal: [
                 {
-                    name: "Total Alarm",
+                    name: "Total Alarms",
                     value: 1000
                 },
                 {
-                    name: "Alarm %",
-                    value: 50
+                    name: "Device Alarms",
+                    value: 2000
                 }
             ],
             events: [
@@ -97,41 +120,7 @@ export default {
                     channelName: "中正運動中心停車場 LPR CH3",
                     value: 1500
                 }
-            ],
-            // swiper 設定值 --------------------------------------------------------
-            swiperOptions1: {
-                loop: true,
-                autoplay: { delay: 3000 },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true
-                },
-                init: true,
-                slidesPerView: 3,
-                spaceBetween: 25,
-                navigation: {
-                    prevEl: '.swiper-button-prev',
-                    nextEl: '.swiper-button-next'
-                },
-                breakpoints: {
-                    500: {
-                        slidesPerView: 3
-                    },
-                    767: {
-                        slidesPerView: 3
-                    },
-                    1024: {
-                        slidesPerView: 3
-                    },
-                    1600: {
-                        slidesPerView: 3
-                    },
-                    1920: {
-                        slidesPerView: 3
-                    }
-                }
-            }
-            // swiper 設定值 --------------------------------------------------------
+            ]
         }
     }, components: {
         DashBoardCard,
@@ -163,7 +152,37 @@ export default {
 <style>
 #main {
     font-family: Montserrat, "Segoe UI", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 2rem 0;
+    margin: 1rem 0;
     text-align: center;
+}
+
+/** 1040像素以下*/
+@media screen and (max-width: 1039px) {
+    .dashboardcard {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        margin: 1rem 0;
+    }
+
+    .dashboardcard-swiper {
+        height: 550px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/** 1040像素以上 */
+@media screen and (min-width: 1040px) {
+    .dashboardcard {
+        width: 20%;
+    }
+
+    .dashboardcard-swiper {
+        width: 60%;
+    }
 }
 </style>
