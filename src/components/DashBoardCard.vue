@@ -3,22 +3,20 @@
 
 <template>
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="dashboard-card">
-                    <div class="title">
-                        <img class="icon" src="../assets/car.png" v-if="cardImage === 1">
-                        <img class="icon" src="../assets/license.png" v-else>
-                    </div>
-                    <div class="title">
-                        {{ cardNameShortening }}
-                    </div>
-                    <div class="body">
-                        <div style="color: blue;">{{ cardValueReg }}</div>
-                    </div>
-                    <div class="footer">
-                        decrease 10 % than yesterday
-                    </div>
+        <div class="row dashboard-card">
+            <div class="col-2">
+                <img class="icon" src="../assets/car.png" v-if="cardImage === 1">
+                <img class="icon" src="../assets/license.png" v-else>
+            </div>
+            <div class="col-10">
+                <div class="title">
+                    {{ cardNameShortening }}
+                </div>
+                <div class="body">
+                    {{ cardValueReg }}
+                </div>
+                <div class="footer">
+                    decrease 10 % than yesterday
                 </div>
             </div>
         </div>
@@ -63,74 +61,113 @@ export default {
 }
 </script>
 <style>
-.title {
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    /* 水平置中 */
-    align-items: center;
-    justify-content: center;
-}
-
-.body {}
-
-.footer {
-    color: #00ff00;
-    display: flex;
-    flex-wrap: wrap;
+/**RWD < 750*/
+.dashboard-card {
+    height: 120px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 1rem 0;
+    text-align: center;
     align-items: center;
     justify-content: center;
 }
 
 .icon {
-    width: 50px;
-    height: 50px;
-    background-color: #eee;
-    border-radius: 15px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+        margin-top: 50px;
+        width: 30px;
+        height: 30px;
+        background-color: #eee;
+        border-radius: 15px;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+
+.title {
+    margin-top: 10px;
+    font-size: 14px;
 }
 
-/** 1600像素以下 */
-@media screen and (max-width: 1600px) {
+.body {
+    color: blue;
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.footer {
+    color: #00BB00;
+    font-size: 14px;
+}
+
+/** RWD > 750 */
+@media screen and (min-width: 750px) {
     .dashboard-card {
-        font-size: 15px;
         height: 160px;
         border: 1px solid black;
         border-radius: 10px;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
     }
 
-    .icon {
-        width: 40px;
-        height: 40px;
+    /* .icon {
+        margin-top: 50px;
+        width: 50px;
+        height: 50px;
         background-color: #eee;
         border-radius: 15px;
-        display: flex;
-        flex-wrap: wrap;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    } */
+
+    .body {
+        color: blue;
+        font-size: 30px;
+        font-weight: 600;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    .body {
+        color: blue;
+        font-size: 35px;
+        font-weight: 600;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .icon {
+        margin-top: 50px;
+        width: 30px;
+        height: 30px;
+        background-color: #eee;
+        border-radius: 15px;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .body {
+        color: blue;
+        font-size: 40px;
+        font-weight: 600;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .dashboard-card {
+        height: 160px;
+        border: 1px solid black;
+        border-radius: 10px;
+        text-align: center;
         align-items: center;
         justify-content: center;
     }
 }
 
-/** 1600~1920像素 */
-@media screen and (min-width: 1600px) and (max-width: 1920px) {
-    .dashboard-card {
-        font-size: 15px;
-        height: 160px;
-        border: 1px solid black;
-        border-radius: 10px;
-    }
-}
+@media screen and (min-width: 1600px) {}
 
-/** 1920像素以上 */
 @media screen and (min-width: 1920px) {
-    .dashboard-card {
-        font-size: 18px;
-        height: 160px;
-        border: 1px solid black;
-        border-radius: 10px;
-    }
 }
 </style>
